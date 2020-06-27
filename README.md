@@ -7,6 +7,7 @@
 - mod - Modelo do Documento Fiscal
 - serie - Série do Documento Fiscal
 - nNF - Número do Documento Fiscal
+- nNFFinal - Número do Documento Fiscal Final (até qual deseja pesquisar) 
 - tpEmis – forma de emissão da NF-e
 - cNF - Código Numérico que compõe a Chave de Acesso
 - cDV - Dígito Verificador da Chave de Acesso
