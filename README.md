@@ -1,6 +1,7 @@
 # API para consultar nota fiscal com base nos dados informados.
 
 ### DADOS
+
 - cUF - Código da UF do emitente do Documento Fiscal
 - AAMM - Ano e Mês de emissão da NF-e
 - CNPJ - CNPJ do emitente
