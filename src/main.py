@@ -1,5 +1,5 @@
 from flask  import Flask, request, jsonify
-import utils
+import geraChaveAcesso
 
 app = Flask(__name__)
 
@@ -10,7 +10,7 @@ def raiz():
 @app.route('/consulta', methods=["POST"])
 def main():
     dados = request.get_json()
-    chaveAcesso = utils.calculaDigitoVerificador(dados)
+    chaveAcesso = geraChaveAcesso.calculaDigitoVerificador(dados)
     return jsonify({"chaveAcesso": chaveAcesso})
 
 
