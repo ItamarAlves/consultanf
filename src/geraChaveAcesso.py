@@ -30,7 +30,7 @@ def calculaDigitoVerificador(dados):
         for dia in range(0, qtDias):
             dataEmissao = utils.addDay(emissao)
             emissao = utils.formatDate(dataEmissao)
-            print(emissao)
+            
             chave43 = cUF + emissao[0:5].replace('/', '') + cnpj + mod + serie + utils.prencheNumeroNf(str(numeroNf)) + tpEmis + cNF
             
             chaveAcesso = chave43
