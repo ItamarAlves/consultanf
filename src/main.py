@@ -9,9 +9,9 @@ def raiz():
 
 @app.route('/consulta', methods=["POST"])
 def main():
-    dados = request.get_json();
-    chaveAcesso = utils.calculaDigitoVerificador(dados);
-    return jsonify({"chaveAcesso": chaveAcesso});
+    dados = request.get_json()
+    chaveAcesso = utils.calculaDigitoVerificador(dados)
+    return jsonify({"chaveAcesso": [chaveAcesso]})
 
 
 app.run(debug=True)

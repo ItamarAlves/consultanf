@@ -21,37 +21,42 @@ def calculaDigitoVerificador(dados):
     tpEmis = dados.get("tpEmis")
     cNF = dados.get("cNF")
 
-    chaveAcesso = ""
-    for numeroNf in range(int(nNF),int(nNFFinal)):
-        dataEmissao = addDay(emissao)
-        emissao = formatDate(dataEmissao)
-        chave43 = cUF + emissao[0:5].replace('/', '') + cnpj + mod + serie + prencheNumeroNf(str(numeroNf)) + tpEmis + cNF
-        chaveAcesso = chave43
+    qtDias = quantidadeDias(emissao, datetime.today())
+    chaveAcessoArray = []
+    for dia in range(0, qtDias):
+        for numeroNf in range(int(nNF),int(nNFFinal)):
 
-        indice = 2
-        chave43 = chave43[::-1]
-        soma = 0
-        for i in range(len(chave43)):
-            valorChaveAcessoSeparado = chave43[i:i+1]
-            mult = int(valorChaveAcessoSeparado) * indice
-            soma += mult
+            dataEmissao = addDay(emissao)
+            emissao = formatDate(dataEmissao)
+            chave43 = cUF + emissao[0:5].replace('/', '') + cnpj + mod + serie + prencheNumeroNf(str(numeroNf)) + tpEmis + cNF
+            
+            chaveAcesso = chave43
 
-            indice += 1
-            if (indice > 9):
-                indice = 2    
+            indice = 2
+            chave43 = chave43[::-1]
+            soma = 0
+            for i in range(len(chave43)):
+                valorChaveAcessoSeparado = chave43[i:i+1]
+                mult = int(valorChaveAcessoSeparado) * indice
+                soma += mult
 
-        #próximo passo: Dividindo a somatória das ponderações por 11 teremos
-        resto = soma % 11
-        #Quando o resto da divisão for 0 (zero) ou 1 (um), o DV deverá ser igual a 0 (zero).
-        dv = 11 - resto
+                indice += 1
+                if (indice > 9):
+                    indice = 2    
 
-        if ((resto <= 0 or resto == 1) or dv >= 10):
-            dv = 0
-                
-        chaveAcesso = chaveAcesso + str(dv)
-        print(chaveAcesso)
+            #próximo passo: Dividindo a somatória das ponderações por 11 teremos
+            resto = soma % 11
+            #Quando o resto da divisão for 0 (zero) ou 1 (um), o DV deverá ser igual a 0 (zero).
+            dv = 11 - resto
 
-    return chaveAcesso
+            if ((resto <= 0 or resto == 1) or dv >= 10):
+                dv = 0
+                    
+            chaveAcesso = chaveAcesso + str(dv)
+            chaveAcessoArray.append(chaveAcesso)
+            print(chaveAcesso)
+
+    return chaveAcessoArray
 
 
 def addDay(data):
@@ -70,3 +75,8 @@ def prencheNumeroNf(numero):
     for i in range(0, size):
         numero = '0' + numero
     return numero
+
+def quantidadeDias(dataInicial, dataFinal):
+    qtDias = abs((parseDate(dataInicial) - dataFinal).days)
+    print(qtDias)
+    return qtDias
