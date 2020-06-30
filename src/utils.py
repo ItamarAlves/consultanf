@@ -13,6 +13,7 @@ def calculaDigitoVerificador(dados):
     #DV = 11 - (resto da divisão)
     cUF = dados.get("cUF")
     emissao = dados.get("AAMM")
+    emissaoTemp = emissao
     cnpj = dados.get("CNPJ")
     mod = dados.get("mod")
     serie = dados.get("serie")
@@ -23,11 +24,13 @@ def calculaDigitoVerificador(dados):
 
     qtDias = quantidadeDias(emissao, datetime.today())
     chaveAcessoArray = []
-    for dia in range(0, qtDias):
-        for numeroNf in range(int(nNF),int(nNFFinal)):
+    for numeroNf in range(int(nNF),int(nNFFinal)+1):
 
+        emissao = emissaoTemp
+        for dia in range(0, qtDias):
             dataEmissao = addDay(emissao)
             emissao = formatDate(dataEmissao)
+            print(emissao)
             chave43 = cUF + emissao[0:5].replace('/', '') + cnpj + mod + serie + prencheNumeroNf(str(numeroNf)) + tpEmis + cNF
             
             chaveAcesso = chave43
@@ -54,7 +57,7 @@ def calculaDigitoVerificador(dados):
                     
             chaveAcesso = chaveAcesso + str(dv)
             chaveAcessoArray.append(chaveAcesso)
-            print(chaveAcesso)
+            # print(chaveAcesso)
 
     return chaveAcessoArray
 
@@ -78,5 +81,4 @@ def prencheNumeroNf(numero):
 
 def quantidadeDias(dataInicial, dataFinal):
     qtDias = abs((parseDate(dataInicial) - dataFinal).days)
-    print(qtDias)
     return qtDias
