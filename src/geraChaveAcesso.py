@@ -11,27 +11,27 @@ def calculaDigitoVerificador(dados):
     #A somatória dos resultados das ponderações dos algarismos é dividida por 11 e o DV (dígito
     #verificador) será a diferença entre o divisor (11) e o resto da divisão:
     #DV = 11 - (resto da divisão)
-    cUF = dados.get("cUF")
-    emissao = dados.get("AAMM")
+    codigoUf = dados.get("codigoUf")
+    emissao = dados.get("dataEmissao")
     emissaoTemp = emissao
-    cnpj = dados.get("CNPJ")
-    mod = dados.get("mod")
+    cnpj = dados.get("cnpj")
+    modelo = dados.get("modelo")
     serie = dados.get("serie")
-    nNF = dados.get("nNF")
-    nNFFinal = dados.get("nNFFinal")
-    tpEmis = dados.get("tpEmis")
-    cNF = dados.get("cNF")
+    numeroNfInicio = dados.get("numeroNfInicio")
+    numeroNfFinal = dados.get("numeroNfFinal")
+    tipoEmissao = dados.get("tipoEmissao")
+    codigoNumerico = dados.get("codigoNumerico")
 
     qtDias = utils.quantidadeDias(emissao, datetime.today())
     chaveAcessoArray = []
-    for numeroNf in range(int(nNF),int(nNFFinal)+1):
+    for numeroNf in range(int(numeroNfInicio),int(numeroNfFinal)+1):
 
         emissao = emissaoTemp
         for dia in range(0, qtDias):
             dataEmissao = utils.addDay(emissao)
             emissao = utils.formatDate(dataEmissao)
             
-            chave43 = cUF + emissao[0:5].replace('/', '') + cnpj + mod + serie + utils.prencheNumeroNf(str(numeroNf)) + tpEmis + cNF
+            chave43 = codigoUf + emissao[0:5].replace('/', '') + cnpj + modelo + serie + utils.prencheNumeroNf(str(numeroNf)) + tipoEmissao + codigoNumerico
             
             chaveAcesso = chave43
 

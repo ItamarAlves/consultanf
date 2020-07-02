@@ -18,7 +18,11 @@ def main():
 
     for chave in (chaveAcessoArray):
         respostaDanfeOnline = consultanf(chave)
-        return respostaDanfeOnline
+        return jsonify({
+            "chaveValida": [
+                respostaDanfeOnline.get("chave")
+            ]
+        })
 
 
 
